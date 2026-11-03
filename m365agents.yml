@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://aka.ms/m365-agents-toolkit/v1.9/yaml.schema.json
+# Visit https://aka.ms/teamsfx-v5.0-guide for details on this file
+version: v1.9
+
+environmentFolderPath: ./env
+
+# Triggered when 'teamsapp provision' is executed, or by the
+# Microsoft 365 Agents Toolkit extension in VS Code.
+provision:
+  # Creates a Teams app registration
+  - uses: teamsApp/create
+    with:
+      # Teams app name
+      name: Employee Onboarding${{APP_NAME_SUFFIX}}
+    # Write the information of the created resources into environment file
+    writeToEnvironmentFile:
+      teamsAppId: TEAMS_APP_ID
+
+  # Build Teams app package with latest env value
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  # Validate app package using validation rules
+  - uses: teamsApp/validateAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  # Apply the Teams app manifest to an existing Teams app in
+  # Developer Portal. Will use the app id in manifest file to determine
+  # which Teams app to update.
+  - uses: teamsApp/update
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  # Extend your Teams app to Outlook and the Microsoft 365 app
+  - uses: teamsApp/extendToM365
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+    writeToEnvironmentFile:
+      titleId: M365_TITLE_ID
+      appId: M365_APP_ID
+
+# Triggered when 'teamsapp publish' is executed
+publish:
+  # Build Teams app package with latest env value
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  # Validate app package using validation rules
+  - uses: teamsApp/validateAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  # Publish the app to Teams Admin Center for review and approval
+  - uses: teamsApp/publishAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+    writeToEnvironmentFile:
+      publishedAppId: TEAMS_APP_PUBLISHED_APP_ID
+
+projectId: 7d6f6772-6bb1-43a6-a22b-33db6b661e75

@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch in Copilot (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "https://m365.cloud.microsoft/chat/?auth=2",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "presentation": {
+        "group": "group 1: the Microsoft 365 app",
+        "order": 1
+      },
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Launch in Copilot (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://m365.cloud.microsoft/chat/?auth=2",
+      "runtimeArgs": ["--remote-debugging-port=9223"],
+      "presentation": {
+        "group": "group 1: the Microsoft 365 app",
+        "order": 2
+      },
+      "internalConsoleOptions": "neverOpen"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Preview in Copilot (Edge)",
+      "configurations": ["Launch in Copilot (Edge)"],
+      "preLaunchTask": "Start Teams App",
+      "presentation": {
+        "group": "group 1: the Microsoft 365 app",
+        "order": 1
+      },
+      "stopAll": true
+    },
+    {
+      "name": "Preview in Copilot (Chrome)",
+      "configurations": ["Launch in Copilot (Chrome)"],
+      "preLaunchTask": "Start Teams App",
+      "presentation": {
+        "group": "group 1: the Microsoft 365 app",
+        "order": 2
+      },
+      "stopAll": true
+    }
+  ]
+}

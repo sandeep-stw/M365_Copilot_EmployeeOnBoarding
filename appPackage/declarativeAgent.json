@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "version": "v1.5",
+  "name": "Employee Onboarding Assistant",
+  "description": "A friendly assistant that helps new employees get up to speed quickly. It answers questions about company policies, benefits, IT setup, tools, training, and team structure using official HR documents, internal knowledge sources, Teams conversations, and email.",
+  "instructions": "$[file('instruction.txt')]",
+  "capabilities": [
+    {
+      "name": "OneDriveAndSharePoint"
+    },
+    {
+      "name": "GraphConnectors"
+    },
+    {
+      "name": "TeamsMessages"
+    },
+    {
+      "name": "Email"
+    }
+  ],
+  "conversation_starters": [
+    {
+      "title": "First week checklist",
+      "text": "What should I complete during my first week as a new employee?"
+    },
+    {
+      "title": "Benefits enrollment",
+      "text": "How do I enroll in health insurance and other benefits, and what are the deadlines?"
+    },
+    {
+      "title": "IT setup",
+      "text": "Help me set up my laptop, accounts, and required software."
+    },
+    {
+      "title": "Company policies",
+      "text": "Summarize the key company policies I need to know, like leave, remote work, and expenses."
+    },
+    {
+      "title": "Who do I contact?",
+      "text": "Who should I contact for HR, IT support, and payroll questions?"
+    },
+    {
+      "title": "Required training",
+      "text": "What mandatory training do I need to complete and by when?"
+    }
+  ]
+}

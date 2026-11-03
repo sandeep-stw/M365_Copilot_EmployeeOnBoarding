@@ -1,0 +1,16 @@
+# Microsoft 365 Agents Toolkit files
+env/.env.*.user
+env/.env.local
+appPackage/build/
+.deployment/
+
+# Secrets
+*.user
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
